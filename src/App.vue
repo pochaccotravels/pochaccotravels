@@ -1,47 +1,30 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { routes } from '@/router'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <v-app>
+    <!-- Outer background: your side images show here (see main.css) -->
+    <div class="page-bg">
+      <!-- Center column: the actual website -->
+      <div class="site-frame">
+        <!-- NAV MENU (builds itself from src/router/index.js) -->
+        <nav class="site-nav">
+          <router-link to="/" class="site-logo">Pochacco Travels</router-link>
+          <div class="nav-links">
+            <router-link v-for="r in routes" :key="r.path" :to="r.path" class="nav-link">
+              {{ r.meta.title }}
+            </router-link>
+          </div>
+        </nav>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+        <!-- PAGE CONTENT -->
+        <main class="site-main">
+          <router-view />
+        </main>
+
+        <footer class="site-footer">© {{ new Date().getFullYear() }} Pochacco Travels</footer>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </v-app>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
